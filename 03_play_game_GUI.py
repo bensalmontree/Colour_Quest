@@ -1,7 +1,8 @@
 from tkinter import *
-from functools import partial # To prevent unwanted windows
+from functools import partial  # To prevent unwanted windows
 import csv
 import random
+
 
 # users choose 3, 5 or 10 rounds
 class ChooseRounds:
@@ -16,6 +17,7 @@ class ChooseRounds:
         # Hide root window (ie: hide rounds choice window).
         root.withdraw()
 
+
 class Play:
 
     def __init__(self, how_many):
@@ -29,33 +31,32 @@ class Play:
         self.rounds_wanted = IntVar()
         self.rounds_wanted.set(how_many)
 
-        # Initially set rounds played and rounds won to 6
-        self.rounds_wanted = IntVar()
-        self.rounds_wanted.set(how_many)
-
         # Initially set rounds played and rounds won to 0
         self.rounds_played = IntVar()
         self.rounds_played.set(0)
 
+        self.rounds_won = IntVar()
+        self.rounds_won.set(0)
+
         # lists to hold user score/s and computer score/s used to work out statistics
-        user_scores = []
-        computer_scores = []
+        self.user_scores = []
+        self.computer_scores = []
 
         # get all the colours for use in game
         self.all_colours = self.get_all_colours()
 
         self.quest_frame = Frame(self.play_box, padx=10, pady=10)
         self.quest_frame.grid()
-        
-        round_headings = "Choose - Round 1 of {}".format(how_many)
-        self.choose_heading = Label(self.quest_frame, text=round_headings, font=("Arial", "16", "bold"))
+
+        rounds_heading = "Choose - Round 1 of {}".format(how_many)
+        self.choose_heading = Label(self.quest_frame, text=rounds_heading, font=("Arial", "16", "bold"))
         self.choose_heading.grid(row=0)
 
         instructions = "Choose one of the colours below.  When you choose a colour, the computer's choice and the results of the round will be revealed."
         self.instructions_label = Label(self.quest_frame, text=instructions, wraplength=350, justify="left")
         self.instructions_label.grid(row=1)
 
-       # get colours for buttons for first round ...
+        # get colours for buttons for first round ...
         self.button_colours_list = []
 
         # create colour buttons (in choice_frame)!
@@ -90,7 +91,7 @@ class Play:
         self.new_round()
 
         # large label to show overall game results
-        self.game_results_label = Label(self.quest_frame, text="Game Totals: User: - \t Computer: -", bg="#FFF2CC", padx=10, pady=10, font=("Arial", "10"), width=42)
+        self.game_results_label = Label(self.quest_frame, text="Game Totals: User: - \t Computer: -", bg="#FFF2CC", padx=10, pady=10,font=("Arial", "10"), width=42)
         self.game_results_label.grid(row=5, pady=5)
 
         self.control_frame = Frame(self.quest_frame)
@@ -169,8 +170,7 @@ class Play:
         # retrieve number of rounds wanted / played and update heading.
         how_many = self.rounds_wanted.get()
         current_round = self.rounds_played.get()
-        new_heading = "Choose - Round {} of " \
-                      "{}".format(current_round + 1, how_many)
+        new_heading = "Choose - Round {} of {}".format(current_round + 1, how_many)
         self.choose_heading.config(text=new_heading)
 
     # work out who won and if the game is over update win / loss lables and buttons
@@ -205,7 +205,8 @@ class Play:
 
         self.computer_scores.append(comp_score_current)
 
-        comp_announce = "The computer chose {}".format(comp_choice[0])
+        comp_announce = "The computer " \
+                        "chose {}".format(comp_choice[0])
 
         self.comp_choice_label.config(text=comp_announce, bg=comp_choice[0], fg=comp_choice[2])
 
@@ -278,3 +279,4 @@ if __name__ == "__main__":
     root.title("Colour Quest")
     ChooseRounds()
     root.mainloop()
+
