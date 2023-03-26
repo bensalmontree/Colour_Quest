@@ -84,12 +84,12 @@ class DisplayStats:
         self.help_heading_label.grid(row=0)
 
         stats_text = "Here are your game statistics"
-        self.help_text_label = Label(self.stats_frame, text=stats_text, justify="left", bg=stats_bg_colour)
+        self.help_text_label = Label(self.stats_frame, text=stats_text, wraplength=350, justify="left", bg=stats_bg_colour)
         self.help_text_label.grid(row=1, padx=10)
 
         # frame to hold statistics 'table'
-        self.date_frame = Frame(self.stats_frame, bg=stats_bg_colour, borderwidth=1, relief="solid")
-        self.date_frame.grid(row=2, padx=10, pady=10)
+        self.data_frame = Frame(self.stats_frame, bg=stats_bg_colour, borderwidth=1, relief="solid")
+        self.data_frame.grid(row=2, padx=10, pady=10)
 
         # get statistics for user and computer
         self.user_stats = self.get_stats(user_scores, "User")
@@ -98,7 +98,7 @@ class DisplayStats:
         # background formatting for heading, odd and even rows
         head_back = "#FFFFFF"
         odd_rows = "#C9D6E8"
-        even_rows = "yellow"
+        even_rows = stats_bg_colour
 
         row_names = ["", "Total", "Best Score", "Worst Score", "Average Score"]
         row_formats = [head_back, odd_rows, even_rows, odd_rows, even_rows]
@@ -134,11 +134,10 @@ class DisplayStats:
 
     # closes help dialogue (used by button and x at top of dialogue)
     def close_stats(self, partner):
-        # Put help button back to normal...
 
+        # Put help button back to normal...
         partner.to_stats_btn.config(state=NORMAL)
         self.stats_box.destroy()
-
 
 # main routine
 if __name__ == "__main__":
